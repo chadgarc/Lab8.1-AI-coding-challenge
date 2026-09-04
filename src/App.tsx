@@ -3,142 +3,23 @@ import DeckSlideshow from "./components/DeckSlideshow";
 import SideBar from "./components/SideBar";
 import { Layout } from "./components/layout/Layout";
 import type { Deck, FlashCardData } from "./types";
+import { DataSet } from "./Data/DataSet";
 
 /**
  * Coordinates deck persistence, selection, ordering, and the main learning views.
  * It connects SideBar, DeckSlideshow, and their child modes through callback props.
  */
 function App() {
-  const defaultDecks: Deck[] = [
-  {
-    id: "web-development",
-    name: "Web Development",
-    cards: [
-      { front: "HTML", back: "Markup language for structuring web pages" },
-      { front: "CSS", back: "Language for styling and layout" },
-      { front: "Semantic HTML", back: "Tags that describe meaning (header, nav, main, footer)" },
-      { front: "Flexbox", back: "One‑dimensional layout system for aligning items" },
-      { front: "Grid", back: "Two‑dimensional layout system for complex designs" },
-      { front: "Accessibility (a11y)", back: "Practices to make web content usable for everyone" },
-      { front: "Responsive Design", back: "Design that adapts to different screen sizes" },
-    ],
-  },
-
-  {
-    id: "javascript",
-    name: "JavaScript",
-    cards: [
-      { front: "const", back: "Declares a variable that cannot be reassigned" },
-      { front: "let", back: "Declares a block‑scoped variable" },
-      { front: "Arrow Functions", back: "Shorter syntax for writing functions" },
-      { front: "Promises", back: "Handle asynchronous operations" },
-      { front: "Async/Await", back: "Syntactic sugar for working with Promises" },
-      { front: "DOM Manipulation", back: "Interact with and modify HTML elements" },
-      { front: "Event Listeners", back: "Respond to user interactions (click, input, etc.)" },
-    ],
-  },
-
-  {
-    id: "typescript",
-    name: "TypeScript",
-    cards: [
-      { front: "Interfaces", back: "Define the shape of objects and enforce structure" },
-      { front: "Types", back: "Alias for defining custom type structures" },
-      { front: "Union Types", back: "Allow a variable to be one of several types" },
-      { front: "Generics", back: "Reusable components with type flexibility" },
-      { front: "Enums", back: "Named constants for better readability" },
-      { front: "Type Narrowing", back: "Refining types using conditions" },
-      { front: "Type Inference", back: "TS automatically determines variable types" },
-    ],
-  },
-
-  {
-    id: "react",
-    name: "React",
-    cards: [
-      { front: "useState", back: "Hook for managing component state" },
-      { front: "useEffect", back: "Hook for side effects (fetch, subscriptions, etc.)" },
-      { front: "Props", back: "Data passed from parent to child components" },
-      { front: "State Lifting", back: "Sharing state by moving it to a common parent" },
-      { front: "Controlled Components", back: "Form inputs managed by React state" },
-      { front: "Component Composition", back: "Building UI by combining components" },
-      { front: "Conditional Rendering", back: "Render UI based on conditions" },
-    ],
-  },
-
-  {
-    id: "bootstrap-vs-tailwind",
-    name: "Bootstrap vs TailwindCSS",
-    cards: [
-      { front: "Bootstrap", back: "Component‑based framework with pre‑built UI elements" },
-      { front: "TailwindCSS", back: "Utility‑first CSS framework for custom designs" },
-      { front: "Bootstrap Grid", back: "12‑column layout system for responsive design" },
-      { front: "Tailwind Utilities", back: "Classes like p‑4, flex, gap‑2 for styling" },
-      { front: "Customization", back: "Tailwind is more flexible; Bootstrap is more opinionated" },
-      { front: "Learning Curve", back: "Bootstrap is easier at first; Tailwind requires practice" },
-      { front: "Design Freedom", back: "Tailwind gives full control; Bootstrap has a consistent look" },
-    ],
-  },
-  {
-    id: "react-advanced-hooks",
-    name: "React Advanced Hooks",
-    cards: [
-      { front: "useCallback", back: "Memoizes a function to avoid unnecessary re-renders" },
-      { front: "useMemo", back: "Memoizes expensive calculations" },
-      { front: "useRef", back: "Stores mutable values that persist across renders" },
-      { front: "useReducer", back: "Alternative to useState for complex state logic" },
-      { front: "useLayoutEffect", back: "Runs synchronously after DOM mutations" },
-      { front: "useImperativeHandle", back: "Customizes the instance value exposed by refs" },
-      { front: "useDeferredValue", back: "Defers updates to improve UI responsiveness" },
-      { front: "useTransition", back: "Marks state updates as non-urgent" },
-      { front: "useId", back: "Generates unique IDs for accessibility and forms" },
-      { front: "Custom Hooks", back: "Reusable logic extracted into functions starting with 'use'" },
-    ],
-  },
-
-  {
-    id: "docker",
-    name: "Docker Essentials & Commands",
-    cards: [
-      { front: "docker ps", back: "Lists running containers" },
-      { front: "docker images", back: "Shows downloaded images" },
-      { front: "docker pull <image>", back: "Downloads an image from Docker Hub" },
-      { front: "docker run <image>", back: "Runs a container from an image" },
-      { front: "docker stop <id>", back: "Stops a running container" },
-      { front: "docker rm <id>", back: "Removes a container" },
-      { front: "docker rmi <image>", back: "Removes an image" },
-      { front: "docker logs <id>", back: "Shows container logs" },
-      { front: "docker-compose up -d", back: "Starts services in detached mode" },
-      { front: "docker exec -it <id> bash", back: "Opens a shell inside a running container" },
-    ],
-  },
-  {
-    id: "frontend-interview",
-    name: "Frontend Interview Questions",
-    cards: [
-      { front: "Event Bubbling", back: "Events propagate from child to parent elements" },
-      { front: "Event Capturing", back: "Events propagate from parent to child elements" },
-      { front: "Debounce", back: "Delays a function until user stops triggering it" },
-      { front: "Throttle", back: "Limits how often a function can run" },
-      { front: "CSR vs SSR", back: "Client-side vs server-side rendering differences" },
-      { front: "Virtual DOM", back: "React's in-memory representation of the UI" },
-      { front: "Shadow DOM", back: "Encapsulated DOM used in Web Components" },
-      { front: "Critical Rendering Path", back: "Steps browser takes to render a page" },
-      { front: "Reflow vs Repaint", back: "Layout recalculation vs visual update" },
-      { front: "Accessibility (ARIA)", back: "Attributes that improve screen reader support" },
-    ],
-  },
-];
 
   const [decks, setDecks] = useState<Deck[]>(() => {
     const savedDecks = localStorage.getItem("flashcard-decks");
-    if (!savedDecks) return defaultDecks;
+    if (!savedDecks) return DataSet;
 
     try {
       const parsedDecks = JSON.parse(savedDecks) as Deck[];
-      return parsedDecks.length > 0 ? parsedDecks : defaultDecks;
+      return parsedDecks.length > 0 ? parsedDecks : DataSet;
     } catch {
-      return defaultDecks;
+      return DataSet;
     }
   });
   const [selectedDeckId, setSelectedDeckId] = useState(decks[0]?.id ?? "");
