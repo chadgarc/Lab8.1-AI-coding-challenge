@@ -2,6 +2,8 @@ import { useEffect, useState, type DragEvent, type FormEvent } from "react";
 import FlashCard from "./FlashCard/FlashCard";
 import TestMode from "./TestMode";
 import StudyMode from "./StudyMode";
+import editIcon from "../assets/edit_icon.svg";
+import deleteIcon from "../assets/delete_icon.svg";
 import type { Deck, FlashCardData } from "../types";
 
 type DeckSlideshowProps = {
@@ -238,10 +240,36 @@ export default function DeckSlideshow({ deck, onAddCard, onUpdateCard, onDeleteC
                       <span className="min-w-0 flex-1 truncate text-white/90">{card.front}</span>
                       <span className="max-w-[40%] truncate text-sm text-white/45">{card.back}</span>
                     </button>
-                    <div className="flex shrink-0 gap-2">
-                      <button type="button" onClick={() => openEdit(index)} className="text-xs text-blue-300 hover:text-blue-100">Edit</button>
-                      <button type="button" onClick={() => removeCard(index)} className="text-xs text-red-300 hover:text-red-100">Delete</button>
-                    </div>
+                    <ul className="menu menu-horizontal bg-base-200/60 rounded-box p-0 shrink-0 border border-white/10">
+                      <li>
+                        <button
+                          type="button"
+                          className="tooltip tooltip-top hover:bg-blue-500/20 p-2 text-blue-300 transition"
+                          data-tip="Edit"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openEdit(index);
+                          }}
+                          aria-label="Edit card"
+                        >
+                          <img src={editIcon} alt="Edit" className="h-4 w-4 shrink-0" />
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          className="tooltip tooltip-top hover:bg-red-500/20 p-2 text-red-300 transition"
+                          data-tip="Delete"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            removeCard(index);
+                          }}
+                          aria-label="Delete card"
+                        >
+                          <img src={deleteIcon} alt="Delete" className="h-4 w-4 shrink-0" />
+                        </button>
+                      </li>
+                    </ul>
                   </div>
                 </li>
               ))}
