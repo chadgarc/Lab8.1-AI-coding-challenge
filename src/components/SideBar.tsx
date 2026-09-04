@@ -98,11 +98,11 @@ export default function SideBar({
 
 			{/* Sidebar drawer */}
 			<aside
-				className={`fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col overflow-y-auto border-r border-white/10 bg-[#161618] p-5 text-left shadow-2xl backdrop-blur-md transition-transform duration-300 ease-in-out lg:static lg:z-auto lg:min-h-screen lg:w-72 lg:translate-x-0 lg:border-b-0 lg:bg-black/20 lg:shadow-none ${
+				className={`fixed inset-y-0 left-0 z-50 flex h-[100dvh] max-h-[100dvh] w-72 max-w-[85vw] flex-col overflow-hidden border-r border-white/10 bg-[#161618] p-5 text-left shadow-2xl backdrop-blur-md transition-transform duration-300 ease-in-out lg:static lg:z-auto lg:h-auto lg:max-h-none lg:min-h-screen lg:w-72 lg:translate-x-0 lg:overflow-visible lg:border-b-0 lg:bg-black/20 lg:shadow-none ${
 					isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
 				}`}
 			>
-				<div className="mb-8 flex items-start justify-between">
+				<div className="mb-6 flex shrink-0 items-start justify-between">
 					<div>
 						<p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">
 							Flashcards
@@ -144,7 +144,7 @@ export default function SideBar({
 					</label>
 				</div>
 
-				<form onSubmit={handleSubmit} className="mb-8 space-y-2">
+				<form onSubmit={handleSubmit} className="mb-6 shrink-0 space-y-2">
 					<label htmlFor="deck-name" className="text-sm text-white/70">
 						Create deck
 					</label>
@@ -166,39 +166,46 @@ export default function SideBar({
 					</div>
 				</form>
 
-				<nav aria-label="Existing decks" className="space-y-2">
-					<p className="mb-3 text-xs uppercase tracking-wider text-white/45">
+				<div className="flex min-h-0 flex-1 flex-col">
+					<p className="mb-3 shrink-0 text-xs uppercase tracking-wider text-white/45">
 						Existing decks
 					</p>
-					{decks.map((deck, index) => (
-						<button
-							key={deck.id}
-							type="button"
-							draggable
-							onDragStart={() => setDraggedIndex(index)}
-							onDragOver={(event) => event.preventDefault()}
-							onDrop={() => {
-								if (draggedIndex !== null && draggedIndex !== index) {
-									onReorderDecks(draggedIndex, index);
-								}
-								setDraggedIndex(null);
-							}}
-							onDragEnd={() => setDraggedIndex(null)}
-							onClick={() => {
-								onSelectDeck(deck.id);
-								setIsOpen(false);
-							}}
-							className={`flex w-full items-center justify-between rounded-lg px-3 py-3 text-left text-sm transition ${
-								deck.id === selectedDeckId
-									? "bg-blue-500/20 text-blue-100 ring-1 ring-blue-300/50"
-									: "text-white/70 hover:bg-white/10 hover:text-white"
-							}`}
-						>
-							<span>{deck.name}</span>
-							<span className="text-xs text-white/45">{deck.cards.length}</span>
-						</button>
-					))}
-				</nav>
+					<nav
+						aria-label="Existing decks"
+						style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-y" }}
+						className="flex-1 space-y-2 overflow-y-auto overscroll-contain pr-1 touch-pan-y"
+					>
+						{decks.map((deck, index) => (
+							<button
+								key={deck.id}
+								type="button"
+								draggable
+								style={{ touchAction: "pan-y" }}
+								onDragStart={() => setDraggedIndex(index)}
+								onDragOver={(event) => event.preventDefault()}
+								onDrop={() => {
+									if (draggedIndex !== null && draggedIndex !== index) {
+										onReorderDecks(draggedIndex, index);
+									}
+									setDraggedIndex(null);
+								}}
+								onDragEnd={() => setDraggedIndex(null)}
+								onClick={() => {
+									onSelectDeck(deck.id);
+									setIsOpen(false);
+								}}
+								className={`flex w-full items-center justify-between rounded-lg px-3 py-3 text-left text-sm touch-pan-y transition ${
+									deck.id === selectedDeckId
+										? "bg-blue-500/20 text-blue-100 ring-1 ring-blue-300/50"
+										: "text-white/70 hover:bg-white/10 hover:text-white"
+								}`}
+							>
+								<span>{deck.name}</span>
+								<span className="text-xs text-white/45">{deck.cards.length}</span>
+							</button>
+						))}
+					</nav>
+				</div>
 			</aside>
 		</>
 	);
