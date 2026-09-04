@@ -139,15 +139,23 @@ export default function DeckSlideshow({ deck, onAddCard, onUpdateCard, onDeleteC
       {activeCard ? (
         <>
           <div className="flex flex-col items-center gap-6">
-            <div className="relative flex h-72 w-full max-w-md items-center justify-center">
-              <div className="absolute h-64 w-[min(24rem,calc(100%-2rem))] translate-x-3 translate-y-3 rounded-box border border-white/10 bg-black/25" />
-              <div className="absolute h-64 w-[min(24rem,calc(100%-2rem))] translate-x-1.5 translate-y-1.5 rounded-box border border-white/15 bg-black/35" />
-              <div key={activeIndex} className="animate-[card-enter_220ms_ease-out]">
-                <FlashCard
-                  {...activeCard}
-                  flipped={isCardFlipped}
-                  onFlip={() => setIsCardFlipped((current) => !current)}
-                />
+            {/* stack view of cards */}
+            <div className="relative flex h-72 w-full items-center justify-center">
+              <div className="relative h-64 w-full max-w-[min(24rem,calc(100%-1rem))]">
+                {/* Background stack layer 2 (deepest) */}
+                <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-box border border-white/10 bg-black/25" />
+
+                {/* Background stack layer 1 (middle) */}
+                <div className="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-box border border-white/15 bg-black/35" />
+
+                {/* Active card */}
+                <div key={activeIndex} className="relative z-10 h-full w-full animate-[card-enter_220ms_ease-out]">
+                  <FlashCard
+                    {...activeCard}
+                    flipped={isCardFlipped}
+                    onFlip={() => setIsCardFlipped((current) => !current)}
+                  />
+                </div>
               </div>
             </div>
 

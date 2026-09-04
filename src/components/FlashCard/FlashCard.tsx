@@ -28,7 +28,7 @@ export default function FlashCard({ front, back, flipped, onFlip }: FlashCardPro
       type="button"
       aria-label="Flip flashcard"
       onClick={handleFlip}
-      className="group h-64 w-96 max-w-[calc(100vw-3rem)] [perspective:1000px]"
+      className="group h-64 w-full max-w-96 [perspective:1000px]"
     >
       <div
         className={`relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d] ${
