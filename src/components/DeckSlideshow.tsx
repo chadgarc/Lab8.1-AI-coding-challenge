@@ -119,7 +119,7 @@ export default function DeckSlideshow({ deck, onAddCard, onUpdateCard, onDeleteC
 
   /** Renders the active card, controls, ordered card list, and card modals. */
   return (
-    <section className="w-full max-w-xl rounded-lg border border-white/10 bg-black/10 p-5 text-left md:p-8">
+    <section className="w-full max-w-xl rounded-lg border border-white/10 bg-black/10 p-5 text-left mt-16 lg:mt-0 lg:p-8">
       <div className="mb-8 flex items-start justify-between gap-4">
         <div>
           <p className="text-sm uppercase tracking-[0.2em] text-blue-300">
