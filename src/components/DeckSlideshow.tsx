@@ -239,7 +239,7 @@ export default function DeckSlideshow({ deck, onAddCard, onUpdateCard, onDeleteC
                       <span className="max-w-[40%] truncate text-sm text-white/45">{card.back}</span>
                     </button>
                     <div className="flex shrink-0 gap-2">
-                      <button type="button" onClick={() => openEdit(index)} className="text-xs text-blue-300 hover:text-blue-100">Editar</button>
+                      <button type="button" onClick={() => openEdit(index)} className="text-xs text-blue-300 hover:text-blue-100">Edit</button>
                       <button type="button" onClick={() => removeCard(index)} className="text-xs text-red-300 hover:text-red-100">Delete</button>
                     </div>
                   </div>
